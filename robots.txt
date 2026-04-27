@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.aequislegal.com/sitemap.xml
+Sitemap: https://aequislegal.com/sitemap.xml
