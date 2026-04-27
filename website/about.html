@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>People | Aequis Legal</title>
+  <meta name="description" content="Meet the advocates at Aequis Legal — led by Utkarsh Kumar, practising before the Supreme Court of India, Delhi High Court and Allahabad High Court." />
+  <link rel="canonical" href="https://www.aequislegal.com/about.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Page-specific overrides ── */
+    .people-hero {
+      padding: clamp(110px, 14vw, 180px) 0 clamp(48px, 6vw, 72px);
+      border-bottom: 1px solid var(--border);
+    }
+    .people-hero .sec-label { margin-bottom: 1rem; }
+    .people-hero h1 {
+      font-family: var(--f-serif);
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 300; line-height: 1.05;
+      color: var(--ink); letter-spacing: -0.02em;
+    }
+    .people-hero h1 em { font-style: italic; color: var(--accent); }
+
+    /* Person layout */
+    .person-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+      padding: clamp(56px, 8vw, 112px) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Photo column */
+    .person-photo-col { position: sticky; top: 96px; }
+
+    /* Professional framed portrait */
+    .person-photo-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      background: var(--navy);
+      border-radius: 3px;
+      /* Outer shadow — depth */
+      box-shadow:
+        0 2px 0 0 var(--gold),
+        0 0 0 6px #ffffff,
+        0 0 0 8px var(--border),
+        0 24px 64px rgba(13, 32, 64, 0.22),
+        0 6px 18px rgba(13, 32, 64, 0.14);
+      overflow: hidden;
+    }
+
+    /* The actual photo */
+    .person-photo-wrap img {
+      width: 100%; height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .person-photo-wrap:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Blue brand bar at bottom */
+    .person-photo-wrap::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--navy), var(--accent));
+      z-index: 2;
+    }
+
+    /* Name badge overlay */
+    .photo-name-badge {
+      position: absolute; bottom: 14px; left: 0; right: 0;
+      display: flex; justify-content: center;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .photo-name-badge span {
+      background: rgba(13, 32, 64, 0.82);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      font-family: var(--f-title);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Credential tags */
+    .person-tags {
+      margin-top: 1.25rem;
+      display: flex; flex-direction: column; gap: 0;
+      border: 1px solid var(--border); border-radius: 2px; overflow: hidden;
+    }
+    .ptag {
+      display: flex; gap: 16px; align-items: baseline;
+      padding: 10px 14px; border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+    }
+    .ptag:last-child { border-bottom: none; }
+    .ptag-lbl {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold); min-width: 60px; flex-shrink: 0;
+    }
+    .ptag-val { color: var(--ink-mid); line-height: 1.5; }
+
+    /* Bio column */
+    .person-bio-col {}
+    .person-name {
+      font-family: var(--f-serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300; color: var(--ink); line-height: 1.1;
+      margin-bottom: 6px; letter-spacing: -0.01em;
+    }
+    .person-title {
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem;
+    }
+    .person-lede {
+      font-family: var(--f-serif);
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
+      font-weight: 400; font-style: italic; line-height: 1.65;
+      color: var(--ink); margin-bottom: 2rem;
+    }
+    .person-bio p {
+      font-size: 0.97rem; color: var(--ink-mid); line-height: 1.85;
+      margin-bottom: 1.4rem;
+    }
+    .person-bio strong { color: var(--ink); font-weight: 600; }
+    .person-bio a { color: var(--navy); border-bottom: 1px solid var(--border); transition: border-color 0.3s; }
+    .person-bio a:hover { border-color: var(--navy); }
+
+    /* Practice areas for bio */
+    .person-areas {
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+    .person-areas-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .person-areas-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px;
+    }
+    .pa-item {
+      font-size: 0.88rem; color: var(--ink-mid);
+      display: flex; align-items: baseline; gap: 8px;
+    }
+    .pa-item::before { content: '—'; color: var(--gold); font-size: 0.75rem; flex-shrink: 0; }
+
+    /* Contact strip */
+    .person-contact {
+      margin-top: 2.5rem;
+      display: flex; gap: 20px; flex-wrap: wrap;
+    }
+    .pc-link {
+      font-size: 0.85rem; font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
+      color: var(--navy); border-bottom: 1px solid var(--border);
+      padding-bottom: 2px; transition: all 0.3s;
+    }
+    .pc-link:hover { border-color: var(--navy); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .person-layout { grid-template-columns: 1fr; }
+      .person-photo-col { position: static; max-width: 340px; }
+    }
+    @media (max-width: 480px) {
+      .person-areas-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header scrolled" id="siteHeader">
+  <nav class="nav-wrap">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-emblem">⚖</span>
+      <div class="nav-brand-text">
+        <span class="nav-firm">AEQUIS LEGAL</span>
+        <span class="nav-sub">Advocates &amp; Solicitors</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#expertise" class="nl">Expertise</a></li>
+      <li><a href="index.html#about"     class="nl">Our Story</a></li>
+      <li><a href="about.html"           class="nl" style="color:var(--navy)">People</a></li>
+      <li><a href="index.html#blog"      class="nl">Writings</a></li>
+      <li><a href="index.html#contact"   class="nl nl-cta">Write to Us</a></li>
+    </ul>
+    <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="people-hero">
+  <div class="container">
+    <div class="sec-label">People</div>
+    <h1>The advocates<br/>behind <em>Aequis Legal.</em></h1>
+  </div>
+</section>
+
+<!-- Person Profile -->
+<section>
+  <div class="container">
+    <div class="person-layout">
+
+      <!-- Photo Column -->
+      <div class="person-photo-col">
+        <div class="person-photo-wrap">
+          <img
+            src="img/utkarsh-kumar.jpg"
+            alt="Advocate Utkarsh Kumar — Aequis Legal"
+            loading="eager"
+          />
+          <div class="photo-name-badge">
+            <span>Adv. Utkarsh Kumar</span>
+          </div>
+        </div>
+
+        <!-- Credential tags -->
+        <div class="person-tags">
+          <div class="ptag">
+            <span class="ptag-lbl">Called</span>
+            <span class="ptag-val">Bar Council of Uttar Pradesh, 2021</span>
+          </div>
+          <div class="ptag">
+            <span class="ptag-lbl">Courts</span>
+            <span class="ptag-val">Supreme Court of India · Delhi HC · Allahabad HC</span>
+          </div>
+          <div class="ptag">
+            <span class="ptag-lbl">Chambers</span>
+            <span class="ptag-val">Mr. Abhikalp Pratap Singh, AOR, Supreme Court</span>
+          </div>
+          <div class="ptag">
+            <span class="ptag-lbl">Education</span>
+            <span class="ptag-val">B.A. LL.B (Hons.) — RMLNLU, Lucknow, 2021</span>
+          </div>
+          <div class="ptag">
+            <span class="ptag-lbl">Email</span>
+            <span class="ptag-val"><a href="mailto:utkarsh@aequislegal.com" style="color:var(--navy)">utkarsh@aequislegal.com</a></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio Column -->
+      <div class="person-bio-col">
+        <h1 class="person-name">Utkarsh Kumar</h1>
+        <p class="person-title">Advocate · Founder, Aequis Legal</p>
+
+        <p class="person-lede">
+          A litigation advocate whose practice is built on one conviction: 
+          that the quality of thought before the argument determines everything that follows.
+        </p>
+
+        <div class="person-bio">
+          <p>
+            Utkarsh Kumar is a graduate of <strong>Dr. Ram Manohar Lohiya National Law 
+            University, Lucknow</strong> (B.A. LL.B with Honours in Business Laws, 2021), 
+            one of India's foremost national law schools. He has been in practice since 
+            graduation and has built a substantive multi-forum litigation practice in under 
+            five years — an unusually rapid trajectory driven by consistent courtroom presence 
+            and rigorous legal preparation.
+          </p>
+          <p>
+            Utkarsh practises from the Chambers of <strong>Mr. Abhikalp Pratap Singh, 
+            Advocate on Record</strong>, Supreme Court of India, New Delhi. He appears 
+            regularly before the Supreme Court representing private individuals, 
+            corporations, and state governments — including the States of Maharashtra and 
+            Meghalaya — across civil, constitutional and commercial matters.
+          </p>
+          <p>
+            His arbitration practice is among the most distinctive aspects of his work. 
+            He has been briefed on ICC international arbitrations and statutory arbitrations 
+            conducted before tribunals of the highest composition, including proceedings 
+            presided over by former Chief Justices of India. His infrastructure arbitration 
+            work, particularly in the road and energy sectors on behalf of national PSUs, 
+            has given him deep familiarity with complex, high-stakes multi-party proceedings.
+          </p>
+          <p>
+            Prior to founding Aequis Legal, Utkarsh worked with the Chambers of the 
+            <strong>Additional Advocate General of Uttar Pradesh</strong> at the Allahabad 
+            High Court — an experience that built a broad and practical litigation base 
+            across civil, service, constitutional and criminal matters in one of India's 
+            busiest High Courts.
+          </p>
+          <p>
+            He has represented leading public institutions including 
+            <strong>NHAI, GAIL, NMDC, AAI, RBI, HDFC, IIFCL and IIM Lucknow</strong>, 
+            as well as private corporations and individuals across the full range of 
+            civil and criminal litigation. His work in service law — representing 
+            government employees, pensioners and defence personnel before the High Courts — 
+            reflects a commitment to accessible representation regardless of the size 
+            of the matter.
+          </p>
+          <p>
+            As a law student, Utkarsh competed in national and international moot court 
+            competitions, achieving a global ranking at the <strong>Herbert Smith Freehills 
+            Competition Law Moot</strong> at King's College London and winning the National 
+            Corporate Law Moot at NLIU Bhopal. These early experiences cemented a research 
+            ethic and a competitive instinct that continues to define his practice.
+          </p>
+        </div>
+
+        <div class="person-areas">
+          <p class="person-areas-label">Areas of Practice</p>
+          <div class="person-areas-grid">
+            <span class="pa-item">Supreme Court Litigation</span>
+            <span class="pa-item">High Court Practice</span>
+            <span class="pa-item">International Arbitration (ICC)</span>
+            <span class="pa-item">Domestic Arbitration</span>
+            <span class="pa-item">Corporate &amp; Commercial</span>
+            <span class="pa-item">Insolvency &amp; NCLT</span>
+            <span class="pa-item">Criminal Defence</span>
+            <span class="pa-item">Service &amp; Employment Law</span>
+            <span class="pa-item">Constitutional Law</span>
+            <span class="pa-item">Property &amp; Real Estate</span>
+          </div>
+        </div>
+
+        <div class="person-contact">
+          <a href="mailto:utkarsh@aequislegal.com" class="pc-link">
+            ✉ &nbsp;utkarsh@aequislegal.com
+          </a>
+          <a href="tel:+918948268809" class="pc-link">
+            ✆ &nbsp;+91 8948 268 809
+          </a>
+          <a href="index.html#contact" class="pc-link">
+            Send a brief →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <span class="ft-emblem">⚖</span>
+        <div>
+          <span class="ft-firm">AEQUIS LEGAL</span>
+          <span class="ft-sub">Advocates &amp; Solicitors</span>
+        </div>
+      </div>
+      <nav class="ft-nav">
+        <a href="index.html#expertise">Expertise</a>
+        <a href="index.html#about">Our Story</a>
+        <a href="about.html">People</a>
+        <a href="index.html#blog">Writings</a>
+        <a href="index.html#contact">Write to Us</a>
+      </nav>
+    </div>
+    <div class="ft-bottom">
+      <p>© 2026 Aequis Legal. All rights reserved. Enrolled with the Bar Council of Uttar Pradesh.</p>
+      <p class="ft-disclaimer">
+        Disclaimer: The information on this website is for general informational purposes only and does not constitute legal advice. No lawyer-client relationship is created by visiting this website.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<a href="mailto:utkarsh@aequislegal.com" class="float-pill visible" id="floatPill">
+  Email Us &nbsp;→&nbsp; utkarsh@aequislegal.com
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>
