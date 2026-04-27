@@ -1,21 +1,21 @@
 /* ============================================================
-   AMAGI LEGAL — STYLESHEET
-   Ikigai-inspired: editorial, minimal, typography-led
+   AEQUIS LEGAL — STYLESHEET
+   Professional light-blue brand theme, typography-led
    ============================================================ */
 
 /* ── Variables ───────────────────────────────────── */
 :root {
-  --ink:       #1a1a1a;
-  --ink-mid:   #4a4a4a;
-  --ink-light: #888888;
-  --paper:     #fdfcf9;
+  --ink:       #0f172a;
+  --ink-mid:   #334155;
+  --ink-light: #7a8fa8;
+  --paper:     #f0f8ff;
   --white:     #ffffff;
-  --border:    #e5e2db;
-  --gold:      #b8973e;
-  --gold-pale: #f5edd6;
-  --navy:      #0e1f3b;
-  --navy-mid:  #1a3460;
-  --accent:    #8b1a1a;
+  --border:    #bdd5ea;
+  --gold:      #1565a3;
+  --gold-pale: #dbeafe;
+  --navy:      #0d2040;
+  --navy-mid:  #1a3a6e;
+  --accent:    #1d4ed8;
 
   --f-serif:  'Cormorant Garamond', Georgia, serif;
   --f-sans:   'Inter', system-ui, sans-serif;

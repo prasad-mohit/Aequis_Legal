@@ -1,5 +1,5 @@
 /* ============================================================
-   AMAGI LEGAL — SCRIPT.JS
+   AEQUIS LEGAL — SCRIPT.JS
    BCI modal · nav · counters · reveal · carousel · form
    ============================================================ */
 
@@ -211,7 +211,24 @@
         submitBtn.disabled = true;
       }
 
-      // Simulate submission (replace with real API call / EmailJS / Formspree)
+      // Build mailto: with form data so it opens the client's email app
+      const name    = (form.elements['name']    || {}).value || '';
+      const phone   = (form.elements['phone']   || {}).value || '';
+      const email   = (form.elements['email']   || {}).value || '';
+      const matter  = (form.elements['matter']  || {}).value || '';
+      const message = (form.elements['message'] || {}).value || '';
+
+      const subject = 'Legal Enquiry from ' + name + ' — ' + matter;
+      const body    = 'Name: ' + name +
+                      '\nPhone: ' + phone +
+                      '\nEmail: ' + email +
+                      '\nNature of Matter: ' + matter +
+                      '\n\nMessage:\n' + message;
+
+      window.location.href = 'mailto:utkarsh@aequislegal.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body='    + encodeURIComponent(body);
+
       setTimeout(function () {
         if (submitBtn) submitBtn.style.display = 'none';
         if (success)   success.style.display   = 'block';
@@ -221,14 +238,14 @@
         if (typeof gtag === 'function') {
           gtag('event', 'generate_lead', {
             event_category: 'Contact',
-            event_label:    'Amagi Legal Form Submit'
+            event_label:    'Aequis Legal Form Submit'
           });
         }
         // Meta Pixel
         if (typeof fbq === 'function') {
           fbq('track', 'Lead');
         }
-      }, 1500);
+      }, 800);
     });
   }
 
